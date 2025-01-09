@@ -156,6 +156,38 @@ module.exports = grammar({
 		enum_value: (_) =>
 			seq(field("name", /[A-Z]\w*/), optional(seq("=", field("tag", /\d+/)))),
 
+		oneof_block: ($) =>
+			seq(
+				"{",
+				repeat(
+					prec.left(
+						2,
+						choice(
+							seq($._line_option_node, optional(",")),
+							seq($._line_option_block, optional(",")),
+							seq(
+								$.field_definition,
+								choice(
+									seq($.option_block, optional(",")),
+									seq(repeat($._line_option_node), ","),
+								),
+							),
+						),
+					),
+				),
+				prec.left(
+					1,
+					optional(
+						seq(
+							$.field_definition,
+							choice($.option_block, repeat($._line_option_node)),
+							optional(","),
+						),
+					),
+				),
+				"}",
+			),
+
 		interface_definition: ($) =>
 			seq(
 				"interface",
@@ -197,16 +229,25 @@ module.exports = grammar({
 		_list_type_definition: ($) => seq("list", "<", $._type_selector, ">"),
 		_map_type_definition: ($) =>
 			seq("map", "<", $._type_selector, ",", $._type_selector, ">"),
+		_oneof_type_definition: ($) => seq("oneof", $.oneof_block),
 		field_definition: ($) =>
-			seq(
-				field("name", $.identifier),
-				":",
-				field("type", $.field_type),
-				optional(seq("=", $.field_tag)),
+			choice(
+				seq(
+					field("name", $.identifier),
+					":",
+					field("type", $.field_type),
+					optional(seq("=", $.field_tag)),
+				),
+				seq("oneof", field("name", $.identifier), $.oneof_block),
 			),
 		field_tag: (_) => /[1-9]\d*/,
 		field_type: ($) =>
-			choice($._type_selector, $._list_type_definition, $._map_type_definition),
+			choice(
+				$._type_selector,
+				$._list_type_definition,
+				$._map_type_definition,
+				$._oneof_type_definition,
+			),
 		embed_definition: ($) => seq("embed", $._type_selector, optional(",")),
 
 		option_target: (_) =>

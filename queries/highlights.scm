@@ -2,7 +2,7 @@
 
 ["interface" "message" "enum"] @keyword.type
 "import" @keyword.import
-["embed" "stream" "option" "for"] @keyword
+["embed" "stream" "option" "for" "oneof"] @keyword
 ["list" "map"] @type.builtin
 
 ; option

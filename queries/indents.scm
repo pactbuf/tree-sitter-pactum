@@ -6,6 +6,7 @@
 	(value_object)
 	(value_array)
 	(option_definition)
+	(oneof_block)
 ] @indent.begin
 
 "}" @indent.branch
