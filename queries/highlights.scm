@@ -3,18 +3,19 @@
 ["interface" "message" "enum"] @keyword.type
 "import" @keyword.import
 ["embed" "stream" "option" "for"] @keyword
-["list" "map"] @type
+["list" "map"] @type.builtin
 
 ; option
 (option_target) @constant
 
 ; import
-(import_definition alias: (_) @type.definition)
+(import_definition alias: (_) @module)
 
 ; message
-(message_definition name: (identifier) @type)
+(message_definition name: (identifier) @type.definition)
 (field_definition name: (identifier) @variable.member)
 (field_type name: (_) @type)
+(field_type prefix: (_) @module)
 (field_tag) @tag
 (embed_definition name: (_) @type)
 (embed_definition prefix: (_) @module)
