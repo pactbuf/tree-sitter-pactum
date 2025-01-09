@@ -51,3 +51,7 @@
  "#"
  "->"
  ] @operator
+
+; comments
+(comment) @comment
+(documentation) @comment.documentation

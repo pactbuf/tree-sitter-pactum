@@ -20,6 +20,8 @@ module.exports = grammar({
 				$.interface_definition,
 				$.enum_definition,
 				$.option_definition,
+				$.comment,
+				$.documentation,
 			),
 		identifier: (_) => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
@@ -268,6 +270,33 @@ module.exports = grammar({
 				),
 				"}",
 			),
+
+		comment_block: (_) =>
+			seq(
+				"/*",
+				repeat(
+					choice(
+						/[^*]+/, // anything except '*'
+						seq("*", /[^/]/), // anything except '/'
+					),
+				),
+				"*/",
+			),
+		documentation_block: (_) =>
+			seq(
+				"/**",
+				repeat(
+					choice(
+						/[^*]+/, // anything except '*'
+						seq("*", /[^/]/), // anything except '/'
+					),
+				),
+				"*/",
+			),
+		_comment_line: (_) => seq("//", /(.*)/),
+		_documentation_line: (_) => seq("///", /.*/),
+		comment: ($) => choice($._comment_line, $.comment_block),
+		documentation: ($) => choice($._documentation_line, $.documentation_block),
 
 		selector: ($) => seq($.identifier, repeat(seq(".", $.identifier))),
 		_type_selector: ($) =>
