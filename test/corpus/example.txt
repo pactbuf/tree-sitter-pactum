@@ -37,16 +37,16 @@ import (
 ===
 options
 ===
-path.to.option = "literal"
-some_option = true
-boolean = false
-integer = 1
-negative = -1
-float = 1.2
-float_negative = -1.2
-list_empty = []
-list_simple = [1 1.2 "string literal", [1 2] true [false]]
-object = {
+#path.to.option = "literal"
+#some_option = true
+#boolean = false
+#integer = 1
+#negative = -1
+#float = 1.2
+#float_negative = -1.2
+#list_empty = []
+#list_simple = [1 1.2 "string literal", [1 2] true [false]]
+#object = {
   "string" = "value",
 	"integer" = 1
 	"float" = -12.1
@@ -54,151 +54,200 @@ object = {
 	"object_empty" = {}
 	"object_full" = {"a" = 1, "b" = []}
 }
-flag_value
+#flag_value
 r#group {
-  #another {
+  s#shared_option = false
+  unnecessary_option {
 	  value = {"a" = 1}
 	}
+	selector {
+	  value = {"b" = false}
+	}
+	"raw_option" = {
+	  "value" = {"c" = 1.2}
+	}
 }
-r#required
-r#"required.raw"
+
+# {
+  value = 1
+}
+r# {
+  value = 1
+}
+s# {
+  value = 1
+}
 ---
 
 (source_file
-	(option_node
-		(option_selector
-			(selector
-				(identifier)
-				(identifier)
-				(identifier)))
-		(value
-			(string)))
-	(option_node
-		(option_selector
-			(selector
-				(identifier)))
-		(value))
-	(option_node
-		(option_selector
-			(selector
-				(identifier)))
-		(value))
-	(option_node
-		(option_selector
-			(selector
-				(identifier)))
-		(value
-			(integer)))
-	(option_node
-		(option_selector
-			(selector
-				(identifier)))
-		(value
-			(integer)))
-	(option_node
-		(option_selector
-			(selector
-				(identifier)))
-		(value
-			(float)))
-	(option_node
-		(option_selector
-			(selector
-				(identifier)))
-		(value
-			(float)))
-	(option_node
-		(option_selector
-			(selector
-				(identifier)))
-		(value
-			(value_array)))
-	(option_node
-		(option_selector
-			(selector
-				(identifier)))
-		(value
-			(value_array
-				(value
-					(integer))
-				(value
-					(float))
-				(value
-					(string))
-				(value
-					(value_array
-						(value
-							(integer))
-						(value
-							(integer))))
-				(value)
-				(value
-					(value_array
-						(value))))))
-	(option_node
-		(option_selector
-			(selector
-				(identifier)))
-		(value
-			(value_object
-				(string)
-				(value
-					(string))
-				(string)
-				(value
-					(integer))
-				(string)
-				(value
-					(float))
-				(string)
-				(value
-					(value_array
-						(value)
-						(value)))
-				(string)
-				(value
-					(value_object))
-				(string)
-				(value
-					(value_object
-						(string)
-						(value
-							(integer))
-						(string)
-						(value
-							(value_array)))))))
-	(option_node
-		(option_selector
-			(selector
-				(identifier))))
-	(option_node
-		(option_selector
-			(selector
-				(identifier)))
+	(module_option_definition
 		(option_node
-			(option_selector
-				(selector
-					(identifier)))
+			(option_key
+				(identifier)
+				(identifier)
+				(identifier))
+			(value
+				(string))))
+	(module_option_definition
+		(option_node
+			(option_key
+				(identifier))
+			(value)))
+	(module_option_definition
+		(option_node
+			(option_key
+				(identifier))
+			(value)))
+	(module_option_definition
+		(option_node
+			(option_key
+				(identifier))
+			(value
+				(integer))))
+	(module_option_definition
+		(option_node
+			(option_key
+				(identifier))
+			(value
+				(integer))))
+	(module_option_definition
+		(option_node
+			(option_key
+				(identifier))
+			(value
+				(float))))
+	(module_option_definition
+		(option_node
+			(option_key
+				(identifier))
+			(value
+				(float))))
+	(module_option_definition
+		(option_node
+			(option_key
+				(identifier))
+			(value
+				(value_array))))
+	(module_option_definition
+		(option_node
+			(option_key
+				(identifier))
+			(value
+				(value_array
+					(value
+						(integer))
+					(value
+						(float))
+					(value
+						(string))
+					(value
+						(value_array
+							(value
+								(integer))
+							(value
+								(integer))))
+					(value)
+					(value
+						(value_array
+							(value)))))))
+	(module_option_definition
+		(option_node
+			(option_key
+				(identifier))
+			(value
+				(value_object
+					(string)
+					(value
+						(string))
+					(string)
+					(value
+						(integer))
+					(string)
+					(value
+						(float))
+					(string)
+					(value
+						(value_array
+							(value)
+							(value)))
+					(string)
+					(value
+						(value_object))
+					(string)
+					(value
+						(value_object
+							(string)
+							(value
+								(integer))
+							(string)
+							(value
+								(value_array))))))))
+	(module_option_definition
+		(option_node
+			(option_key
+				(identifier))))
+	(module_option_definition
+		(option_node
+			(option_key
+				(identifier))
 			(option_node
-				(option_selector
-					(selector
-						(identifier)))
+				(option_key
+					(identifier))
+				(value))
+			(option_node
+				(option_key
+					(identifier))
+				(option_node
+					(option_key
+						(identifier))
+					(value
+						(value_object
+							(string)
+							(value
+								(integer))))))
+			(option_node
+				(option_key
+					(identifier))
+				(option_node
+					(option_key
+						(identifier))
+					(value
+						(value_object
+							(string)
+							(value)))))
+			(option_node
+				(option_key_literal)
 				(value
 					(value_object
 						(string)
 						(value
-							(integer)))))))
-	(option_node
-		(option_selector
-			(selector
-				(identifier))))
-	(option_node
-		(option_selector
-			(raw_selector))))
+							(value_object
+								(string)
+								(value
+									(float)))))))))
+	(module_option_definition
+		(option_node
+			(option_key
+				(identifier))
+			(value
+				(integer))))
+	(module_option_definition
+		(option_node
+			(option_key
+				(identifier))
+			(value
+				(integer))))
+	(module_option_definition
+		(option_node
+			(option_key
+				(identifier))
+			(value
+				(integer)))))
 
 ===
 message
 ===
+
 message Empty {}
 
 message User {
@@ -206,14 +255,21 @@ message User {
 	name: string = 2,
 	tags: list<string>,
 	context: map<string, string>,
-	age: i32 #required openapi { name = "Age" }
+	age: i32 #required #openapi { name = "Age" }
 }
 
 message User {
-  openapi.name = "Apple"
-	openapi {
+  #openapi.name = "Apple"
+
+	#openapi {
 	  description = "Ubuntu"
 	},
+
+	r# {
+	  openapi {
+		  name = "Apple"
+		}
+	}
 
 	id: string = 1 {}
 	tags: list<string>,
@@ -221,7 +277,7 @@ message User {
 
 message (
   MessageOne {}
-	MessageTwo { openapi{ name = "message two" } }
+	MessageTwo { #openapi{ name = "message two" } }
 )
 ---
 
@@ -233,150 +289,198 @@ message (
 		(field_definition
 			(identifier)
 			(field_type
-				(type_selector
-					(identifier))))
+				(identifier)))
 		(field_definition
 			(identifier)
 			(field_type
-				(type_selector
-					(identifier)))
+				(identifier))
 			(field_tag))
 		(field_definition
 			(identifier)
 			(field_type
-				(type_selector
-					(identifier))))
+				(identifier)))
 		(field_definition
 			(identifier)
 			(field_type
-				(type_selector
-					(identifier))
-				(type_selector
-					(identifier))))
+				(identifier)
+				(identifier)))
 		(field_definition
 			(identifier)
 			(field_type
-				(type_selector
-					(identifier))))
+				(identifier)))
 		(option_node
-			(option_selector
-				(selector
-					(identifier))))
+			(option_key
+				(identifier)))
 		(option_node
-			(option_selector
-				(selector
-					(identifier)))
+			(option_key
+				(identifier))
 			(option_node
-				(option_selector
-					(selector
-						(identifier)))
+				(option_key
+					(identifier))
 				(value
 					(string)))))
 	(message_definition
 		(identifier)
 		(option_node
-			(option_selector
-				(selector
-					(identifier)
-					(identifier)))
+			(option_key
+				(identifier)
+				(identifier))
 			(value
 				(string)))
 		(option_node
-			(option_selector
-				(selector
-					(identifier)))
+			(option_key
+				(identifier))
 			(option_node
-				(option_selector
-					(selector
-						(identifier)))
+				(option_key
+					(identifier))
+				(value
+					(string))))
+		(option_node
+			(option_key
+				(identifier))
+			(option_node
+				(option_key
+					(identifier))
 				(value
 					(string))))
 		(field_definition
 			(identifier)
 			(field_type
-				(type_selector
-					(identifier)))
+				(identifier))
 			(field_tag))
 		(field_definition
 			(identifier)
 			(field_type
-				(type_selector
-					(identifier)))))
+				(identifier))))
 	(message_definition
 		(identifier)
 		(identifier)
 		(option_node
-			(option_selector
-				(selector
-					(identifier)))
+			(option_key
+				(identifier))
 			(option_node
-				(option_selector
-					(selector
-						(identifier)))
+				(option_key
+					(identifier))
 				(value
 					(string))))))
 
 ===
-message embed
+enum
 ===
-message Metadata {
-  id: string openapi.ignore json.name = "_meta"
+
+enum UserType {
+  #regular_option = 1
+	s#shared_option = 1.2
+	r#raw_option = false
+	s# {
+	  "pact.io/json" {
+		  name = "shared"
+		}
+	}
+
+	Unknown = 0,
+	A,
+	B = 100 #required #max=1,
+	C {
+    option = 1
+		s#shared_option
+	},
+	D
 }
 
-message User {
-  embed Metadata
-
-	name: string
-}
 ---
 
 (source_file
-	(message_definition
+	(enum_definition
 		(identifier)
-		(field_definition
-			(identifier)
-			(field_type
-				(type_selector
-				  (identifier))))
 		(option_node
-			(option_selector
-				(selector
-					(identifier)
-					(identifier))))
-		(option_node
-			(option_selector
-				(selector
-					(identifier)
-					(identifier)))
+			(option_key
+				(identifier))
 			(value
-				(string))))
-	(message_definition
+				(integer)))
+		(option_node
+			(option_key
+				(identifier))
+			(value
+				(float)))
+		(option_node
+			(option_key
+				(identifier))
+			(value))
+		(option_node
+			(option_key_literal)
+			(option_node
+				(option_key
+					(identifier))
+				(value
+					(string))))
+		(enum_value)
+		(enum_value)
+		(enum_value)
+		(option_node
+			(option_key
+				(identifier)))
+		(option_node
+			(option_key
+				(identifier))
+			(value
+				(integer)))
+		(enum_value)
+		(option_node
+			(option_key
+				(identifier))
+			(value
+				(integer)))
+		(option_node
+			(option_key
+				(identifier)))
+		(enum_value)))
+
+===
+enum group
+===
+
+enum (
+  UserType {}
+
+  EnumType {
+	  Unknown, A, B, C
+	}
+)
+
+---
+
+(source_file
+	(enum_definition
 		(identifier)
-		(embed_definition
-			(type_selector
-			 (identifier)))
-		(field_definition
-			(identifier)
-			(field_type
-				(type_selector
-				 (identifier))))))
+		(identifier)
+		(enum_value)
+		(enum_value)
+		(enum_value)
+		(enum_value)))
 
 ===
 interface
 ===
+
 interface User {
   #openapi.operation = "User Operation"
-	grpc.ignore,
-	ws.ignore
+	#grpc.ignore,
+	#ws.ignore
 
   Ping();
-	CheckHealth() http.ignore r#"pactus.io/is-operation";
+	CheckHealth() #http.ignore r#"pactus.io/is-operation";
 	WaitForSomething() -> stream Something #required;
 	WaitForSomething() -> (stream Something) #required;
 	Create(CreateRequest) -> (CreateResponse);
 	Create(stream CreateRequest) -> (stream CreateResponse);
 	Create(stream CreateRequest) -> stream CreateResponse {
 	  openapi.operation = "Something"
+	}
+	Create() {
+		s#shared_option {
+			shared
+		}
 	}
 }
 
@@ -388,56 +492,50 @@ interface (
 	  Ping();
 	}
 )
+
 ---
 
 (source_file
 	(interface_definition
 		(identifier)
 		(option_node
-			(option_selector
-				(selector
-					(identifier)
-					(identifier)))
+			(option_key
+				(identifier)
+				(identifier))
 			(value
 				(string)))
 		(option_node
-			(option_selector
-				(selector
-					(identifier)
-					(identifier))))
+			(option_key
+				(identifier)
+				(identifier)))
 		(option_node
-			(option_selector
-				(selector
-					(identifier)
-					(identifier))))
+			(option_key
+				(identifier)
+				(identifier)))
 		(func_definition
 			(identifier))
 		(func_definition
 			(identifier))
 		(option_node
-			(option_selector
-				(selector
-					(identifier)
-					(identifier))))
+			(option_key
+				(identifier)
+				(identifier)))
 		(option_node
-			(option_selector
-				(raw_selector)))
+			(option_key_literal))
 		(func_definition
 			(identifier)
 			(func_param
 				(identifier)))
 		(option_node
-			(option_selector
-				(selector
-					(identifier))))
+			(option_key
+				(identifier)))
 		(func_definition
 			(identifier)
 			(func_param
 				(identifier)))
 		(option_node
-			(option_selector
-				(selector
-					(identifier))))
+			(option_key
+				(identifier)))
 		(func_definition
 			(identifier)
 			(func_param
@@ -457,93 +555,21 @@ interface (
 			(func_param
 				(identifier)))
 		(option_node
-			(option_selector
-				(selector
-					(identifier)
-					(identifier)))
+			(option_key
+				(identifier)
+				(identifier))
 			(value
-				(string))))
+				(string)))
+		(func_definition
+			(identifier))
+		(option_node
+			(option_key
+				(identifier))
+			(option_node
+				(option_key
+					(identifier)))))
 	(interface_definition
 		(identifier)
 		(identifier)
 		(func_definition
 			(identifier))))
-
-===
-enum
-===
-
-enum (
-  UserType { Unknown, Regular, Awesome }
-
-	Eggs {
-	  openapi.name = "EggCooking"
-		openapi.use_numeric
-		r#meta.ignore
-		Unknown #openapi.ignore,
-		OverEasy = 1,
-		OverMedium = 2 openapi.default,
-	}
-)
-
----
-
-(source_file
-	(enum_definition
-		(identifier)
-		(option_node
-			(option_selector
-				(selector
-					(identifier))))
-		(option_node
-			(option_selector
-				(selector
-					(identifier))))
-		(option_node
-			(option_selector
-				(selector
-					(identifier))))
-		(identifier)
-		(option_node
-			(option_selector
-				(selector
-					(identifier)
-					(identifier)))
-			(value
-				(string)))
-		(option_node
-			(option_selector
-				(selector
-					(identifier)
-					(identifier))))
-		(option_node
-			(option_selector
-				(selector
-					(identifier)
-					(identifier))))
-		(option_node
-			(option_selector
-				(selector
-					(identifier))))
-		(option_node
-			(option_selector
-				(selector
-					(identifier)
-					(identifier))))
-		(option_node
-			(option_selector
-				(selector
-					(identifier)))
-			(value
-				(integer)))
-		(option_node
-			(option_selector
-				(selector
-					(identifier)))
-			(value
-				(integer)))
-		(option_node
-			(option_selector
-				(selector
-					(identifier)
-					(identifier))))))

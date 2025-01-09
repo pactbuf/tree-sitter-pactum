@@ -3,6 +3,7 @@
 ["interface" "message" "enum"] @keyword.type
 "import" @keyword.import
 ["embed" "stream"] @keyword
+["list" "map"] @type
 
 ; import
 (import_definition alias: (_) @module)
@@ -12,7 +13,8 @@
 (field_definition name: (identifier) @variable.member)
 (field_type name: (_) @type)
 (field_tag) @tag
-(embed_definition type: (_) @type)
+(embed_definition name: (_) @type)
+(embed_definition prefix: (_) @module)
 
 ; enum
 (enum_definition name: (identifier) @type)
@@ -27,7 +29,8 @@
 ["," ":" "="] @punctuation.delimiter
 
 ; options
-(option_selector) @attribute
+(option_key) @attribute
+(option_key_literal) @attribute
 
 (import_path) @string.special.path
 (string) @string
@@ -39,7 +42,8 @@
 ] @constant.builtin
 
 [
- "r"
+ "s#"
+ "r#"
  "#"
  "->"
  ] @operator
