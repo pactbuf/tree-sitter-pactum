@@ -31,6 +31,10 @@
         {
           "type": "SYMBOL",
           "name": "enum_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "option_definition"
         }
       ]
     },
@@ -152,7 +156,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_option_block"
+              "name": "option_block"
             },
             {
               "type": "SYMBOL",
@@ -277,7 +281,7 @@
         }
       ]
     },
-    "_option_block": {
+    "option_block": {
       "type": "SEQ",
       "members": [
         {
@@ -363,7 +367,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "_option_block"
+                  "name": "option_block"
                 }
               ]
             },
@@ -422,7 +426,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_option_block"
+          "name": "option_block"
         }
       ]
     },
@@ -584,7 +588,7 @@
                           "members": [
                             {
                               "type": "SYMBOL",
-                              "name": "_option_block"
+                              "name": "option_block"
                             },
                             {
                               "type": "CHOICE",
@@ -642,7 +646,7 @@
                     "members": [
                       {
                         "type": "SYMBOL",
-                        "name": "_option_block"
+                        "name": "option_block"
                       },
                       {
                         "type": "REPEAT",
@@ -797,7 +801,7 @@
                           "members": [
                             {
                               "type": "SYMBOL",
-                              "name": "_option_block"
+                              "name": "option_block"
                             },
                             {
                               "type": "CHOICE",
@@ -855,7 +859,7 @@
                     "members": [
                       {
                         "type": "SYMBOL",
-                        "name": "_option_block"
+                        "name": "option_block"
                       },
                       {
                         "type": "SEQ",
@@ -1050,7 +1054,7 @@
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "_option_block"
+                            "name": "option_block"
                           },
                           {
                             "type": "CHOICE",
@@ -1343,6 +1347,121 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "option_target": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Message"
+        },
+        {
+          "type": "STRING",
+          "value": "Func"
+        },
+        {
+          "type": "STRING",
+          "value": "Enum"
+        },
+        {
+          "type": "STRING",
+          "value": "EnumValue"
+        },
+        {
+          "type": "STRING",
+          "value": "Document"
+        },
+        {
+          "type": "STRING",
+          "value": "Interface"
+        }
+      ]
+    },
+    "option_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "option"
+        },
+        {
+          "type": "STRING",
+          "value": "for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "option_target"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "option_target"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "field_definition"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "field_definition"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": ","
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "}"
         }
       ]
     },

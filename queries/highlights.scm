@@ -2,11 +2,14 @@
 
 ["interface" "message" "enum"] @keyword.type
 "import" @keyword.import
-["embed" "stream"] @keyword
+["embed" "stream" "option" "for"] @keyword
 ["list" "map"] @type
 
+; option
+(option_target) @constant
+
 ; import
-(import_definition alias: (_) @module)
+(import_definition alias: (_) @type.definition)
 
 ; message
 (message_definition name: (identifier) @type)

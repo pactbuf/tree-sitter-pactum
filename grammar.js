@@ -19,6 +19,7 @@ module.exports = grammar({
 				$.message_definition,
 				$.interface_definition,
 				$.enum_definition,
+				$.option_definition,
 			),
 		identifier: (_) => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
@@ -39,7 +40,7 @@ module.exports = grammar({
 		no_prefix_keyword: (_) => "_",
 
 		module_option_definition: ($) =>
-			seq(choice("#", "r#", "s#"), choice($._option_block, $.option_node)),
+			seq(choice("#", "r#", "s#"), choice($.option_block, $.option_node)),
 		value: ($) =>
 			choice(
 				$.string,
@@ -53,7 +54,7 @@ module.exports = grammar({
 		value_array: ($) => seq("[", repeat(seq($.value, optional(","))), "]"),
 		value_object: ($) =>
 			seq("{", repeat(seq($.string, "=", $.value, optional(","))), "}"),
-		_option_block: ($) =>
+		option_block: ($) =>
 			seq(
 				"{",
 				repeat(seq(optional(choice("r#", "s#")), $.option_node, optional(","))),
@@ -62,10 +63,10 @@ module.exports = grammar({
 		option_node: ($) =>
 			seq(
 				$._option_selector,
-				optional(choice(seq("=", $.value), $._option_block)),
+				optional(choice(seq("=", $.value), $.option_block)),
 			),
 		_line_option_node: ($) => seq(choice("#", "r#", "s#"), $.option_node),
-		_line_option_block: ($) => seq(choice("#", "r#", "s#"), $._option_block),
+		_line_option_block: ($) => seq(choice("#", "r#", "s#"), $.option_block),
 		_option_selector: ($) => seq(choice($.option_key_literal, $.option_key)),
 		option_key: ($) => alias($.selector, "option_key"),
 		option_key_literal: ($) => alias($.string, "option_key_literal"),
@@ -92,7 +93,7 @@ module.exports = grammar({
 							seq(
 								$.field_definition,
 								choice(
-									seq($._option_block, optional(",")),
+									seq($.option_block, optional(",")),
 									seq(repeat($._line_option_node), ","),
 								),
 							),
@@ -104,7 +105,7 @@ module.exports = grammar({
 					optional(
 						seq(
 							$.field_definition,
-							choice($._option_block, repeat($._line_option_node)),
+							choice($.option_block, repeat($._line_option_node)),
 							optional(","),
 						),
 					),
@@ -133,7 +134,7 @@ module.exports = grammar({
 							seq(
 								$.enum_value,
 								choice(
-									seq($._option_block, optional(",")),
+									seq($.option_block, optional(",")),
 									seq(repeat($._line_option_node), ","),
 								),
 							),
@@ -145,7 +146,7 @@ module.exports = grammar({
 					optional(
 						seq(
 							$.enum_value,
-							choice($._option_block, seq(repeat($._line_option_node))),
+							choice($.option_block, seq(repeat($._line_option_node))),
 							optional(","),
 						),
 					),
@@ -174,7 +175,7 @@ module.exports = grammar({
 						seq(
 							$.func_definition,
 							choice(
-								seq($._option_block, optional(";")),
+								seq($.option_block, optional(";")),
 								seq(repeat($._line_option_node), ";"),
 							),
 						),
@@ -207,6 +208,26 @@ module.exports = grammar({
 		field_type: ($) =>
 			choice($._type_selector, $._list_type_definition, $._map_type_definition),
 		embed_definition: ($) => seq("embed", $._type_selector, optional(",")),
+
+		option_target: (_) =>
+			choice("Message", "Func", "Enum", "EnumValue", "Document", "Interface"),
+		option_definition: ($) =>
+			seq(
+				"option",
+				"for",
+				$.option_target,
+				repeat(seq(",", $.option_target)),
+				"{",
+				optional(
+					seq(
+						$.field_definition,
+						repeat(seq(",", $.field_definition)),
+						optional(","),
+					),
+				),
+				"}",
+			),
+
 		selector: ($) => seq($.identifier, repeat(seq(".", $.identifier))),
 		_type_selector: ($) =>
 			seq(
