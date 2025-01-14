@@ -433,6 +433,37 @@
     "fields": {}
   },
   {
+    "type": "pact_definition",
+    "named": true,
+    "fields": {
+      "package": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "selector",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "selector",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -463,6 +494,10 @@
         },
         {
           "type": "option_definition",
+          "named": true
+        },
+        {
+          "type": "pact_definition",
           "named": true
         }
       ]
@@ -688,6 +723,10 @@
   },
   {
     "type": "option",
+    "named": false
+  },
+  {
+    "type": "pact",
     "named": false
   },
   {

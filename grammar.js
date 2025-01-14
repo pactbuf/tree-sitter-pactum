@@ -12,7 +12,7 @@ module.exports = grammar({
 	extras: ($) => [$.comment, /\s/],
 
 	rules: {
-		source_file: ($) => repeat($._definition),
+		source_file: ($) => seq(optional($.pact_definition), repeat($._definition)),
 		_definition: ($) =>
 			choice(
 				$.import_definition,
@@ -23,6 +23,8 @@ module.exports = grammar({
 				$.option_definition,
 			),
 		identifier: (_) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+
+		pact_definition: ($) => seq("pact", field("package", $.selector)),
 
 		import_definition: ($) =>
 			seq(

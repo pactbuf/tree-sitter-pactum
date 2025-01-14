@@ -2,8 +2,11 @@
 
 ["interface" "message" "enum"] @keyword.type
 "import" @keyword.import
-["embed" "stream" "option" "for" "oneof"] @keyword
+["embed" "stream" "option" "for" "oneof" "pact"] @keyword
 ["list" "map"] @type.builtin
+
+; pact
+(pact_definition package:(_) @module)
 
 ; option
 (option_target) @constant
