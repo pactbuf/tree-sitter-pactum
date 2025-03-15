@@ -5,6 +5,9 @@
 ; enum
 (enum_definition name: (identifier) @local.definition.enum)
 
+; const
+(const_definition name: (identifier) @local.definition.type)
+
 ; message
 (message_definition name: (identifier) @local.definition.type)
 (field_definition name: (identifier) @local.definition.field)

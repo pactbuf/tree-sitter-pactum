@@ -52,12 +52,16 @@
         {
           "type": "SYMBOL",
           "name": "option_definition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "const_definition"
         }
       ]
     },
     "identifier": {
       "type": "PATTERN",
-      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+      "value": "(?:[a-zA-Z_][a-zA-Z0-9_]*)|(?:[`][a-zA-Z_][a-zA-Z0-9_]*[`])"
     },
     "pact_definition": {
       "type": "SEQ",
@@ -499,6 +503,77 @@
       },
       "named": false,
       "value": "option_key_literal"
+    },
+    "const_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "const"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_message_body_definition"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "("
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_const_body_definition"
+                  }
+                },
+                {
+                  "type": "STRING",
+                  "value": ")"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "_const_body_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "option_block"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     },
     "message_definition": {
       "type": "SEQ",
@@ -1615,11 +1690,19 @@
         },
         {
           "type": "STRING",
+          "value": "Field"
+        },
+        {
+          "type": "STRING",
           "value": "Document"
         },
         {
           "type": "STRING",
           "value": "Interface"
+        },
+        {
+          "type": "STRING",
+          "value": "OneOf"
         }
       ]
     },

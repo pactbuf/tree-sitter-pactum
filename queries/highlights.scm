@@ -2,7 +2,7 @@
 
 ["interface" "message" "enum"] @keyword.type
 "import" @keyword.import
-["embed" "stream" "option" "for" "oneof" "pact"] @keyword
+["embed" "stream" "option" "for" "oneof" "pact" "const"] @keyword
 ["list" "map"] @type.builtin
 
 ; pact
@@ -13,6 +13,9 @@
 
 ; import
 (import_definition alias: (_) @module)
+
+; const
+(const_definition name: (identifier) @type.definition)
 
 ; message
 (message_definition name: (identifier) @type.definition)

@@ -21,8 +21,10 @@ module.exports = grammar({
 				$.interface_definition,
 				$.enum_definition,
 				$.option_definition,
+				$.const_definition,
 			),
-		identifier: (_) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+		identifier: (_) =>
+			/(?:[a-zA-Z_][a-zA-Z0-9_]*)|(?:[`][a-zA-Z_][a-zA-Z0-9_]*[`])/,
 
 		pact_definition: ($) => seq("pact", field("package", $.selector)),
 
@@ -73,6 +75,17 @@ module.exports = grammar({
 		_option_selector: ($) => seq(choice($.option_key_literal, $.option_key)),
 		option_key: ($) => alias($.selector, "option_key"),
 		option_key_literal: ($) => alias($.string, "option_key_literal"),
+
+		const_definition: ($) =>
+			seq(
+				"const",
+				choice(
+					$._message_body_definition,
+					seq("(", repeat($._const_body_definition), ")"),
+				),
+			),
+		_const_body_definition: ($) =>
+			seq(field("name", $.identifier), "=", $.value, optional($.option_block)),
 
 		message_definition: ($) =>
 			seq(
@@ -254,7 +267,16 @@ module.exports = grammar({
 		embed_definition: ($) => seq("embed", $._type_selector, optional(",")),
 
 		option_target: (_) =>
-			choice("Message", "Func", "Enum", "EnumValue", "Document", "Interface"),
+			choice(
+				"Message",
+				"Func",
+				"Enum",
+				"EnumValue",
+				"Field",
+				"Document",
+				"Interface",
+				"OneOf",
+			),
 		option_definition: ($) =>
 			seq(
 				"option",

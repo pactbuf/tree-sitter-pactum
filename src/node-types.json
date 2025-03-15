@@ -5,6 +5,48 @@
     "fields": {}
   },
   {
+    "type": "const_definition",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "embed_definition",
+          "named": true
+        },
+        {
+          "type": "field_definition",
+          "named": true
+        },
+        {
+          "type": "option_block",
+          "named": true
+        },
+        {
+          "type": "option_node",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "embed_definition",
     "named": true,
     "fields": {
@@ -473,6 +515,10 @@
       "required": false,
       "types": [
         {
+          "type": "const_definition",
+          "named": true
+        },
+        {
           "type": "enum_definition",
           "named": true
         },
@@ -642,6 +688,10 @@
     "named": false
   },
   {
+    "type": "Field",
+    "named": false
+  },
+  {
     "type": "Func",
     "named": false
   },
@@ -654,11 +704,19 @@
     "named": false
   },
   {
+    "type": "OneOf",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
   {
     "type": "]",
+    "named": false
+  },
+  {
+    "type": "const",
     "named": false
   },
   {
