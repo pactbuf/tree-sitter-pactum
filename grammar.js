@@ -19,7 +19,7 @@ module.exports = grammar({
 				$.module_option_definition,
 				$.message_declaration,
 				$.interface_declaration,
-				$.enum_definition,
+				$.enum_declaration,
 				$.option_definition,
 				$.const_definition,
 			),
@@ -116,17 +116,10 @@ module.exports = grammar({
 			),
 		message_spec: ($) => seq(field("name", $.identifier), $.message_body),
 
-		enum_definition: ($) =>
+		enum_declaration: ($) => seq("enum", choice($.enum_spec, $.enum_group)),
+		enum_group: ($) => seq("(", repeat($.enum_spec), ")"),
+		enum_body: ($) =>
 			seq(
-				"enum",
-				choice(
-					$._enum_body_definition,
-					seq("(", repeat($._enum_body_definition), ")"),
-				),
-			),
-		_enum_body_definition: ($) =>
-			seq(
-				field("name", $.identifier),
 				"{",
 				repeat(
 					prec.left(
@@ -156,6 +149,7 @@ module.exports = grammar({
 				),
 				"}",
 			),
+		enum_spec: ($) => seq(field("name", $.identifier), $.enum_body),
 		enum_value: (_) =>
 			seq(field("name", /[A-Z]\w*/), optional(seq("=", field("tag", /\d+/)))),
 

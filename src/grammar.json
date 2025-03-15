@@ -47,7 +47,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "enum_definition"
+          "name": "enum_declaration"
         },
         {
           "type": "SYMBOL",
@@ -809,7 +809,7 @@
         }
       ]
     },
-    "enum_definition": {
+    "enum_declaration": {
       "type": "SEQ",
       "members": [
         {
@@ -821,43 +821,39 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_enum_body_definition"
+              "name": "enum_spec"
             },
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "("
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_enum_body_definition"
-                  }
-                },
-                {
-                  "type": "STRING",
-                  "value": ")"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "enum_group"
             }
           ]
         }
       ]
     },
-    "_enum_body_definition": {
+    "enum_group": {
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "name",
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "enum_spec"
           }
         },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "enum_body": {
+      "type": "SEQ",
+      "members": [
         {
           "type": "STRING",
           "value": "{"
@@ -1024,6 +1020,23 @@
         {
           "type": "STRING",
           "value": "}"
+        }
+      ]
+    },
+    "enum_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "enum_body"
         }
       ]
     },

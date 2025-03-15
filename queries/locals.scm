@@ -3,7 +3,7 @@
 (func_definition name: (identifier) @local.definition.function)
 
 ; enum
-(enum_definition name: (identifier) @local.definition.enum)
+(enum_spec name: (identifier) @local.definition.enum)
 
 ; const
 (const_definition name: (identifier) @local.definition.type)
@@ -13,9 +13,9 @@
 (field_definition name: (identifier) @local.definition.field)
 
 ; import
-(import_definition alias: (identifier) @local.definition.namespace)
+(import_spec alias: (identifier) @local.definition.namespace)
 
 ; Scopes
 (message_spec) @local.scope
 (interface_spec) @local.scope
-(enum_definition) @local.scope
+(enum_spec) @local.scope

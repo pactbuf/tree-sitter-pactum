@@ -27,7 +27,7 @@
 (embed_definition prefix: (_) @module)
 
 ; enum
-(enum_definition name: (identifier) @type)
+(enum_spec name: (identifier) @type)
 (enum_value) @tag
 
 ; interface

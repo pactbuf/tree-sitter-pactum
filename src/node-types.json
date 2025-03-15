@@ -65,20 +65,9 @@
     }
   },
   {
-    "type": "enum_definition",
+    "type": "enum_body",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": false,
@@ -93,6 +82,66 @@
         },
         {
           "type": "option_node",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "enum_group",
+          "named": true
+        },
+        {
+          "type": "enum_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum_group",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "enum_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "enum_body",
           "named": true
         }
       ]
@@ -643,7 +692,7 @@
           "named": true
         },
         {
-          "type": "enum_definition",
+          "type": "enum_declaration",
           "named": true
         },
         {
