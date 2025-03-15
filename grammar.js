@@ -15,9 +15,9 @@ module.exports = grammar({
 		source_file: ($) => seq(optional($.pact_definition), repeat($._definition)),
 		_definition: ($) =>
 			choice(
-				$.import_definition,
+				$.import_declaration,
 				$.module_option_definition,
-				$.message_definition,
+				$.message_declaration,
 				$.interface_definition,
 				$.enum_definition,
 				$.option_definition,
@@ -28,15 +28,10 @@ module.exports = grammar({
 
 		pact_definition: ($) => seq("pact", field("package", $.selector)),
 
-		import_definition: ($) =>
-			seq(
-				"import",
-				choice(
-					$._import_body_definition,
-					seq("(", repeat($._import_body_definition), ")"),
-				),
-			),
-		_import_body_definition: ($) =>
+		import_declaration: ($) =>
+			seq("import", choice($.import_spec, $.import_group)),
+		import_group: ($) => seq("(", repeat($.import_spec), ")"),
+		import_spec: ($) =>
 			seq(
 				optional(field("alias", choice($.no_prefix_keyword, $.identifier))),
 				field("path", $.import_path),
@@ -79,25 +74,16 @@ module.exports = grammar({
 		const_definition: ($) =>
 			seq(
 				"const",
-				choice(
-					$._message_body_definition,
-					seq("(", repeat($._const_body_definition), ")"),
-				),
+				choice($.message_spec, seq("(", repeat($._const_body_definition), ")")),
 			),
 		_const_body_definition: ($) =>
 			seq(field("name", $.identifier), "=", $.value, optional($.option_block)),
 
-		message_definition: ($) =>
+		message_declaration: ($) =>
+			seq("message", choice($.message_spec, $.message_group)),
+		message_group: ($) => seq("(", repeat($.message_spec), ")"),
+		message_body: ($) =>
 			seq(
-				"message",
-				choice(
-					$._message_body_definition,
-					seq("(", repeat($._message_body_definition), ")"),
-				),
-			),
-		_message_body_definition: ($) =>
-			seq(
-				field("name", $.identifier),
 				"{",
 				repeat(
 					prec.left(
@@ -128,6 +114,7 @@ module.exports = grammar({
 				),
 				"}",
 			),
+		message_spec: ($) => seq(field("name", $.identifier), $.message_body),
 
 		enum_definition: ($) =>
 			seq(

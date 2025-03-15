@@ -31,7 +31,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "import_definition"
+          "name": "import_declaration"
         },
         {
           "type": "SYMBOL",
@@ -39,7 +39,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "message_definition"
+          "name": "message_declaration"
         },
         {
           "type": "SYMBOL",
@@ -80,7 +80,7 @@
         }
       ]
     },
-    "import_definition": {
+    "import_declaration": {
       "type": "SEQ",
       "members": [
         {
@@ -92,33 +92,37 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_import_body_definition"
+              "name": "import_spec"
             },
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "("
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_import_body_definition"
-                  }
-                },
-                {
-                  "type": "STRING",
-                  "value": ")"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "import_group"
             }
           ]
         }
       ]
     },
-    "_import_body_definition": {
+    "import_group": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "import_spec"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "import_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -516,7 +520,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_message_body_definition"
+              "name": "message_spec"
             },
             {
               "type": "SEQ",
@@ -575,7 +579,7 @@
         }
       ]
     },
-    "message_definition": {
+    "message_declaration": {
       "type": "SEQ",
       "members": [
         {
@@ -587,43 +591,39 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_message_body_definition"
+              "name": "message_spec"
             },
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "("
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_message_body_definition"
-                  }
-                },
-                {
-                  "type": "STRING",
-                  "value": ")"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "message_group"
             }
           ]
         }
       ]
     },
-    "_message_body_definition": {
+    "message_group": {
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "name",
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "message_spec"
           }
         },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "message_body": {
+      "type": "SEQ",
+      "members": [
         {
           "type": "STRING",
           "value": "{"
@@ -789,6 +789,23 @@
         {
           "type": "STRING",
           "value": "}"
+        }
+      ]
+    },
+    "message_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "message_body"
         }
       ]
     },

@@ -12,13 +12,13 @@
 (option_target) @constant
 
 ; import
-(import_definition alias: (_) @module)
+(import_spec alias: (_) @module)
 
 ; const
 (const_definition name: (identifier) @type.definition)
 
 ; message
-(message_definition name: (identifier) @type.definition)
+(message_spec name: (identifier) @type.definition)
 (field_definition name: (identifier) @variable.member)
 (field_type name: (_) @type)
 (field_type prefix: (_) @module)

@@ -9,13 +9,13 @@
 (const_definition name: (identifier) @local.definition.type)
 
 ; message
-(message_definition name: (identifier) @local.definition.type)
+(message_spec name: (identifier) @local.definition.type)
 (field_definition name: (identifier) @local.definition.field)
 
 ; import
 (import_definition alias: (identifier) @local.definition.namespace)
 
 ; Scopes
-(message_definition) @local.scope
+(message_spec) @local.scope
 (interface_definition) @local.scope
 (enum_definition) @local.scope
