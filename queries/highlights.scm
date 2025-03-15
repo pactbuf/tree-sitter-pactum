@@ -15,7 +15,7 @@
 (import_spec alias: (_) @module)
 
 ; const
-(const_definition name: (identifier) @type.definition)
+(const_spec name: (identifier) @type.definition)
 
 ; message
 (message_spec name: (identifier) @type.definition)

@@ -20,7 +20,7 @@ module.exports = grammar({
 				$.message_declaration,
 				$.interface_declaration,
 				$.enum_declaration,
-				$.option_definition,
+				$.option_declaration,
 				$.const_definition,
 			),
 		identifier: (_) =>
@@ -71,12 +71,9 @@ module.exports = grammar({
 		option_key: ($) => alias($.selector, "option_key"),
 		option_key_literal: ($) => alias($.string, "option_key_literal"),
 
-		const_definition: ($) =>
-			seq(
-				"const",
-				choice($.message_spec, seq("(", repeat($._const_body_definition), ")")),
-			),
-		_const_body_definition: ($) =>
+		const_definition: ($) => seq("const", choice($.const_spec, $.const_group)),
+		const_group: ($) => seq("(", repeat($.const_spec), ")"),
+		const_spec: ($) =>
 			seq(field("name", $.identifier), "=", $.value, optional($.option_block)),
 
 		message_declaration: ($) =>
@@ -253,12 +250,8 @@ module.exports = grammar({
 				"Interface",
 				"OneOf",
 			),
-		option_definition: ($) =>
+		option_declaration_body: ($) =>
 			seq(
-				"option",
-				"for",
-				$.option_target,
-				repeat(seq(",", $.option_target)),
 				"{",
 				optional(
 					seq(
@@ -268,6 +261,14 @@ module.exports = grammar({
 					),
 				),
 				"}",
+			),
+		option_declaration: ($) =>
+			seq(
+				"option",
+				"for",
+				$.option_target,
+				repeat(seq(",", $.option_target)),
+				$.option_declaration_body,
 			),
 
 		comment: (_) =>

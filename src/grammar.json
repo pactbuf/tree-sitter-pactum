@@ -51,7 +51,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "option_definition"
+          "name": "option_declaration"
         },
         {
           "type": "SYMBOL",
@@ -520,33 +520,37 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "message_spec"
+              "name": "const_spec"
             },
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "("
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_const_body_definition"
-                  }
-                },
-                {
-                  "type": "STRING",
-                  "value": ")"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "const_group"
             }
           ]
         }
       ]
     },
-    "_const_body_definition": {
+    "const_group": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "const_spec"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "const_spec": {
       "type": "SEQ",
       "members": [
         {
@@ -1749,37 +1753,9 @@
         }
       ]
     },
-    "option_definition": {
+    "option_declaration_body": {
       "type": "SEQ",
       "members": [
-        {
-          "type": "STRING",
-          "value": "option"
-        },
-        {
-          "type": "STRING",
-          "value": "for"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "option_target"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": ","
-              },
-              {
-                "type": "SYMBOL",
-                "name": "option_target"
-              }
-            ]
-          }
-        },
         {
           "type": "STRING",
           "value": "{"
@@ -1832,6 +1808,43 @@
         {
           "type": "STRING",
           "value": "}"
+        }
+      ]
+    },
+    "option_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "option"
+        },
+        {
+          "type": "STRING",
+          "value": "for"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "option_target"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "option_target"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "option_declaration_body"
         }
       ]
     },

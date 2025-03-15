@@ -6,7 +6,7 @@
 (enum_spec name: (identifier) @local.definition.enum)
 
 ; const
-(const_definition name: (identifier) @local.definition.type)
+(const_spec name: (identifier) @local.definition.type)
 
 ; message
 (message_spec name: (identifier) @local.definition.type)
