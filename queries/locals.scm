@@ -1,5 +1,5 @@
 ; interface
-(interface_definition name: (identifier) @local.definition.type)
+(interface_spec name: (identifier) @local.definition.type)
 (func_definition name: (identifier) @local.definition.function)
 
 ; enum
@@ -17,5 +17,5 @@
 
 ; Scopes
 (message_spec) @local.scope
-(interface_definition) @local.scope
+(interface_spec) @local.scope
 (enum_definition) @local.scope

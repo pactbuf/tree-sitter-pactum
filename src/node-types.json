@@ -301,20 +301,9 @@
     }
   },
   {
-    "type": "interface_definition",
+    "type": "interface_body",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": false,
@@ -329,6 +318,66 @@
         },
         {
           "type": "option_node",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interface_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "interface_group",
+          "named": true
+        },
+        {
+          "type": "interface_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interface_group",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "interface_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interface_spec",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "interface_body",
           "named": true
         }
       ]
@@ -602,7 +651,7 @@
           "named": true
         },
         {
-          "type": "interface_definition",
+          "type": "interface_declaration",
           "named": true
         },
         {

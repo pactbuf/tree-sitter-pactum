@@ -18,7 +18,7 @@ module.exports = grammar({
 				$.import_declaration,
 				$.module_option_definition,
 				$.message_declaration,
-				$.interface_definition,
+				$.interface_declaration,
 				$.enum_definition,
 				$.option_definition,
 				$.const_definition,
@@ -191,17 +191,11 @@ module.exports = grammar({
 				"}",
 			),
 
-		interface_definition: ($) =>
+		interface_declaration: ($) =>
+			seq("interface", choice($.interface_spec, $.interface_group)),
+		interface_group: ($) => seq("(", repeat($.interface_spec), ")"),
+		interface_body: ($) =>
 			seq(
-				"interface",
-				choice(
-					$._interface_body_definition,
-					seq("(", repeat($._interface_body_definition), ")"),
-				),
-			),
-		_interface_body_definition: ($) =>
-			seq(
-				field("name", $.identifier),
 				"{",
 				repeat(
 					choice(
@@ -218,6 +212,7 @@ module.exports = grammar({
 				),
 				"}",
 			),
+		interface_spec: ($) => seq(field("name", $.identifier), $.interface_body),
 		func_param: ($) => seq(optional("stream"), field("type", $.identifier)),
 		_interface_func_return: ($) =>
 			seq("->", choice(seq("(", $.func_param, ")"), $.func_param)),

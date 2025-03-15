@@ -31,7 +31,7 @@
 (enum_value) @tag
 
 ; interface
-(interface_definition name: (identifier) @type)
+(interface_spec name: (identifier) @type)
 (func_definition name: (identifier) @function)
 (func_param type: (identifier) @type)
 
