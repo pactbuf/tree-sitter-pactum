@@ -1,35 +1,49 @@
 {
-  "grammars": [
-    {
-      "name": "tree-sitter-pactum",
-      "camelcase": "Pactum",
-      "scope": "source.pactum",
-      "highlights": ["queries/highlights.scm"],
-      "file-types": [".pact", "pact"],
-      "injection-regex": "^pactum$"
-    }
-  ],
-  "metadata": {
-    "version": "0.1.0",
-    "license": "MIT",
-    "description": "Pactum parses pact files",
-    "authors": [
-      {
-        "name": "Peyman Mortazavi",
-        "email": "pey.mortazavi@gmail.com",
-        "url": "https://peymanmo.com/"
-      }
-    ],
-    "links": {
-      "repository": "https://github.com/pactbuf/pactum.git"
-    }
-  },
-  "bindings": {
-    "c": true,
-    "go": true,
-    "node": true,
-    "python": true,
-    "rust": true,
-    "swift": true
-  }
+	"grammars": [
+		{
+			"name": "tree-sitter-pactum",
+			"camelcase": "Pactum",
+			"scope": "source.pactum",
+			"highlights": [
+				"queries/highlights.scm"
+			],
+			"indents": [
+				"queries/indents.scm"
+			],
+			"folds": [
+				"queries/folds.scm"
+			],
+			"locals": [
+				"queries/locals.scm"
+			],
+			"file-types": [
+				".pact",
+				"pact"
+			],
+			"injection-regex": "^pactum$"
+		}
+	],
+	"metadata": {
+		"version": "0.1.0",
+		"license": "MIT",
+		"description": "Pactum parses pact files",
+		"authors": [
+			{
+				"name": "Peyman Mortazavi",
+				"email": "pey.mortazavi@gmail.com",
+				"url": "https://peymanmo.com/"
+			}
+		],
+		"links": {
+			"repository": "https://github.com/pactbuf/pactum.git"
+		}
+	},
+	"bindings": {
+		"c": true,
+		"go": true,
+		"node": true,
+		"python": true,
+		"rust": true,
+		"swift": true
+	}
 }
